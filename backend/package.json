@@ -1,0 +1,28 @@
+{
+  "name": "ichiba",
+  "version": "1.0.0",
+  "description": "Ichiba E-commerce Store",
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "nodemon ./src/index.js"
+  },
+  "keywords": [
+    "ecommerce",
+    "mern",
+    "jwt",
+    "react",
+    "nodejs",
+    "mongodb",
+    "mongoose",
+    "mern-project"
+  ],
+  "author": "S4nfs",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-validator": "^6.14.2",
+    "mongoose": "^6.6.5"
+  }
+}
