@@ -48,11 +48,17 @@ const userSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-//hashing password
+//-----------------------------------a virtual is a property that is not stored in MongoDB----------------------------------------
+//hashing password 
 userSchema.virtual('password').set(function (password) {
     this.hash_password = bcrypt.hashSync(password, 10);
 });
-//load hash password from DB
+//generating fullName
+userSchema.virtual('fullName').get(function () {
+    return `${this.firstName}${this.lastName}`
+});
+
+//load hash password from DB and returns boolean
 userSchema.methods = {
     authenticate: function (password) {
         return bcrypt.compareSync(password, this.hash_password);
