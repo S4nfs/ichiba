@@ -1,8 +1,9 @@
 const express = require('express');
 require('dotenv').config();
 const mongoose = require('mongoose');
-// const userRoutes = require('./routes/auth');
+const userRoutes = require('./routes/auth.route');
 const adminRoutes = require('./routes/admin/auth.route');
+const category = require('./routes/category');
 
 const app = express();
 
@@ -14,8 +15,9 @@ mongoose.connect('mongodb://localhost:27017/MERN-ichiba').then(() => {
 })
 
 //routes 
-// app.use('/api', userRoutes)
-app.use('/api', adminRoutes)
+app.use('/api', userRoutes);
+app.use('/api', adminRoutes);
+app.use('/api', category);
 
 
 app.listen(process.env.PORT, () => {
