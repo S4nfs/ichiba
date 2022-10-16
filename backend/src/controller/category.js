@@ -32,7 +32,7 @@ exports.addCategory = (req, res) => {
     const cat = new Category(categoryObj);  //save category
     cat.save((error, category) => {
         if (error) return res.status(400).json({ error: error });
-        if (category) return res.status(400).json({ category: category });
+        if (category) return res.status(200).json({ category: category });
     })
 };
 
@@ -41,7 +41,7 @@ exports.getCategories = (req, res) => {
         if (error) return res.status(400).json({ error: error });
         if (categories) {
             const categoryList = createCategories(categories); //recusrively adding sub-categories inside its parent
-            return res.status(400).json({ categoryList: categoryList });
+            return res.status(200).json({ categoryList: categoryList });
         }
     })
 }
