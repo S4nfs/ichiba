@@ -13,7 +13,6 @@ const initstate = {
 
 }
 export default (state = initstate, action) => {
-    console.log(action)
     switch (action.type) {
         case authConstants.LOGIN_REQUEST:
             state = {
@@ -28,6 +27,11 @@ export default (state = initstate, action) => {
                 token: action.payload.token,
                 authenticate: true,
                 authenticating: false
+            }
+            break;
+        case authConstants.LOGOUT_REQUEST:
+            state = {
+                ...initstate
             }
             break;
     }
