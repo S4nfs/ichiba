@@ -6,12 +6,19 @@ import { login } from '../../actions'
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
-const Signin = (props) => {
+const Signin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const auth = useSelector(state => state.auth); //get store value
     const dispatch = useDispatch();
+
+    //to keep DRY we move the useEffect to App.js
+    // useEffect(() => {
+    //     if (!auth.authenticate) {
+    //         dispatch(isUserLoggedIn());
+    //     }
+    // }, [])
 
     const userLogin = (e) => {
         e.preventDefault();
