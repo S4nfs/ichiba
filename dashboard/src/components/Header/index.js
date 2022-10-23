@@ -1,11 +1,41 @@
 import React from 'react'
 import { Navbar, Container, Nav, NavDropdown, NavLink, Link } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { signout } from '../../actions';
 
 const Header = () => {
+  const auth = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+  const logout = () => {
+    dispatch(signout())
+  }
+  const renderLoggedInLinks = () => {
+    return (
+      <Nav>
+        <li className='nav-item'>
+          <span className="nav-link" onClick={logout}>Signout</span>
+        </li>
+
+      </Nav>
+    )
+  }
+  const renderNonLoggedInLinks = () => {
+    return (
+      <Nav>
+        {/* <Nav.Link href="#deets">Signin</Nav.Link> */}
+        <li className='nav-item'>
+          <NavLink href="signup" className="nav-link">Signup</NavLink>
+        </li>
+        <li>
+          <Nav.Link href="signin" className="nav-link">Signin</Nav.Link>
+        </li>
+      </Nav>
+    )
+  }
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Container>
+      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" style={{ zIndex: 1 }}>
+        <Container fluid>
           <Navbar.Brand href="/">Admin dashboard</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
@@ -22,16 +52,7 @@ const Header = () => {
                 </NavDropdown.Item>
               </NavDropdown> */}
             </Nav>
-            <Nav>
-              {/* <Nav.Link href="#deets">Signin</Nav.Link> */}
-              <li className='nav-item'>
-                <NavLink href="signup" className="nav-link">Signup</NavLink>
-              </li>
-              <li>
-                <Nav.Link href="signin" className="nav-link">Signin</Nav.Link>
-              </li>
-
-            </Nav>
+            {auth.authenticate ? renderLoggedInLinks() : renderNonLoggedInLinks()}
           </Navbar.Collapse>
         </Container>
       </Navbar>
