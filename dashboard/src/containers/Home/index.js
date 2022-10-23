@@ -1,13 +1,17 @@
 import React from 'react'
+import { Row, Col, Container } from 'react-bootstrap'
 import Layout from '../../components/Layout'
+import './style.css'
 
 const Home = (props) => {
     return (
         <Layout>
-            <div className="text-center" style={{ margin: '5rem', background: '#fff' }} >
-                <h1>Admin Dashboard</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti numquam, itaque voluptates blanditiis natus laboriosam sint aut quae a nulla eius perferendis voluptatibus magnam asperiores quasi quas tempore nam? Dolorem.</p>
-            </div>
+            <Container fluid>
+                <Row>
+                    <Col md={2} className="sidebar">Side Bar</Col>
+                    <Col md={10} style={{ marginLeft: 'auto' }}>Container</Col>
+                </Row>
+            </Container>
         </Layout>
     )
 }
