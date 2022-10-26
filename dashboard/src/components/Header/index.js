@@ -15,7 +15,6 @@ const Header = () => {
         <li className='nav-item'>
           <span className="nav-link" onClick={logout}>Signout</span>
         </li>
-
       </Nav>
     )
   }

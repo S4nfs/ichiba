@@ -14,7 +14,7 @@ export const signup = (user) => {
             dispatch({
                 type: userConstants.USER_REGISTER_SUCCESS,
                 payload: {
-                    message
+                    message: message
                 }
             })
         } else {
