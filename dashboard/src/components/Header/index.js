@@ -1,7 +1,8 @@
 import React from 'react'
-import { Navbar, Container, Nav, NavDropdown, NavLink, Link } from 'react-bootstrap';
+import { Navbar, Container, Nav, NavDropdown, Link } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { signout } from '../../actions';
+import { NavLink } from "react-router-dom";
 
 const Header = () => {
   const auth = useSelector(state => state.auth);
@@ -23,10 +24,10 @@ const Header = () => {
       <Nav>
         {/* <Nav.Link href="#deets">Signin</Nav.Link> */}
         <li className='nav-item'>
-          <NavLink href="signup" className="nav-link">Signup</NavLink>
+          <NavLink to="signup" className="nav-link">Signup</NavLink>
         </li>
         <li>
-          <Nav.Link href="signin" className="nav-link">Signin</Nav.Link>
+          <Nav.Link to="signin" className="nav-link">Signin</Nav.Link>
         </li>
       </Nav>
     )
@@ -35,7 +36,7 @@ const Header = () => {
     <>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" style={{ zIndex: 1 }}>
         <Container fluid>
-          <Navbar.Brand href="/">Admin dashboard</Navbar.Brand>
+          <Navbar.Brand to="/">Admin dashboard</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
