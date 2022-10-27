@@ -15,7 +15,7 @@ function createCategories(categories, parentId = null) {
             _id: c._id,
             name: c.name,
             slug: c.sulg,
-            childern: createCategories(categories, c._id)
+            children: createCategories(categories, c._id)
         })
     }
     return categoryList;
