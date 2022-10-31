@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Col, Container, Modal, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllCategory } from '../../actions'
+import { addCategory, getAllCategory } from '../../actions'
 import Layout from '../../components/Layout'
 import Input from '../../components/UI/Input'
 
@@ -19,10 +19,25 @@ const Category = (props) => {
         dispatch(getAllCategory())
     }, [])
 
+    //bootstrap modal
+    const handleClose = () => {
+        const form = new FormData();
+        form.append('name', categoryName);
+        form.append('parentId', parentCategoryId);
+        form.append('categoryImage', categoryImage);
+        dispatch(addCategory(form))
+        // const cat = {
+        //     categoryName: categoryName,
+        //     parentCategoryId: parentCategoryId,
+        //     categoryImage: categoryImage
+        // }
+        // console.log(cat)
+        setShow(false);
+    }
 
-    const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    //get categories
     const renderCategories = (categories) => {
         let myCategories = [];
         for (let category of categories) {
@@ -36,15 +51,22 @@ const Category = (props) => {
         return myCategories
     }
 
+    //add categories
     const createCategoryList = (categories, options = []) => {
         for (let category of categories) {
             options.push({ value: category._id, name: category.name });
             if (category.children.length > 0) {
-                createCategoryList(category.childern, options)
+                createCategoryList(category.children, options)  //recall
             }
         }
         return options;
     }
+
+    //category image
+    const handleCategoryImage = (e) => {
+        setCategoryImage(e.target.files[0])
+    }
+    //=================================================================================================================================
     return (
         <Layout sidebar>
             <Container>
@@ -60,7 +82,6 @@ const Category = (props) => {
                     <Col md={12}>
                         <ul>
                             {renderCategories(category.categories)}
-                            {JSON.stringify(createCategoryList(category.categories))}
                         </ul>
                     </Col>
                 </Row>
@@ -71,9 +92,16 @@ const Category = (props) => {
                 </Modal.Header>
                 <Modal.Body>
                     <Input value={categoryName} placeholder={`Category Name`} onChange={(e) => setCategoryName(e.target.value)} />
-                    <select name="" id="">
+                    <select name="" id="" className="form-control" onChange={(e) => setParentCategoryId(e.target.value)} value={parentCategoryId}>
                         <option value="">select category</option>
+                        {
+                            //handle array options
+                            createCategoryList(category.categories).map(option =>
+                                <option value={option.value} key={option.value}>{option.name}</option>
+                            )
+                        }
                     </select>
+                    <input type="file" name="categoryImage" id="" onChange={handleCategoryImage} />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
