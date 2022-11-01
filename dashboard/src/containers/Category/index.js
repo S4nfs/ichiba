@@ -56,7 +56,7 @@ const Category = (props) => {
         for (let category of categories) {
             options.push({ value: category._id, name: category.name });
             if (category.children.length > 0) {
-                createCategoryList(category.children, options)  //recall
+                createCategoryList(category.children, options)  //recall but with children property added
             }
         }
         return options;
