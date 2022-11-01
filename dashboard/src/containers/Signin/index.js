@@ -28,7 +28,7 @@ const Signin = () => {
         dispatch(login(user))
     }
     if (auth.authenticate) {
-        return <Navigate to={'/'} />
+        return <Navigate to='/' />
     }
     return (
         <Layout>
@@ -56,7 +56,6 @@ const Signin = () => {
                         </Form>
                     </Col>
                 </Row>
-
             </Container>
         </Layout>
     )
