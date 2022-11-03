@@ -23,9 +23,9 @@ const Products = () => {
         form.append('quantity', quantity);
         form.append('price', price);
         form.append('description', description);
-        form.append('categoryId', categoryId);
+        form.append('category', categoryId);
         for (let pic of productPictures) {
-            form.append('productPictures', pic)
+            form.append('productPicture', pic)
         }
         dispatch(addProduct(form));
         setShow(false);
