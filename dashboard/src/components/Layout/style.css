@@ -1,3 +1,13 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #eee;
+  padding-top: 60px;
+  box-shadow: inset 0 0 2px grey;
+}
+
 .sidebar ul {
   margin: 0;
   padding: 0;
