@@ -8,6 +8,16 @@ const initState = {
 
 const buildNewCategories = (parentId, categories, category) => {
     let myCategories = [];
+    if (parentId == undefined) {  //if parent category
+        return [
+            ...categories, {
+                _id: category._id,
+                name: category.name,
+                slug: category.slug,
+                children: []
+            }
+        ]
+    }
     for (let cat of categories) {
         if (cat._id == parentId) {
             /* ex. lets say we create a category in kitchen portion so, if (state.categories._id===parentId) then cat here will be
@@ -15,8 +25,8 @@ const buildNewCategories = (parentId, categories, category) => {
             */
             myCategories.push({
                 ...cat,             //take ...rest(operator) of contents and push the {object} into children [array]
-                children: cat.children && cat.children.length > 0 ? buildNewCategories(parentId, [...cat.children, {
-                    _id: category.id,
+                children: cat.children ? buildNewCategories(parentId, [...cat.children, {
+                    _id: category._id,
                     name: category.name,
                     slug: category.slug,
                     parentId: category.parentId,
@@ -26,7 +36,7 @@ const buildNewCategories = (parentId, categories, category) => {
         } else {
             myCategories.push({
                 ...cat,
-                children: cat.children && cat.children.length > 0 ? buildNewCategories(parentId, cat.children, category) : []
+                children: cat.children ? buildNewCategories(parentId, cat.children, category) : []
             })
         }
     }
