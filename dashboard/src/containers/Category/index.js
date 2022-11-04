@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { Button, Col, Container, Modal, Row } from 'react-bootstrap'
+import React, { useState } from 'react'
+import { Button, Col, Container, Row, Modal } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { addCategory, getAllCategory } from '../../actions'
+import { addCategory } from '../../actions'
 import Layout from '../../components/Layout'
 import Input from '../../components/UI/Input'
 
@@ -15,10 +15,6 @@ const Category = (props) => {
 
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(getAllCategory())
-    }, [])
-
     //bootstrap modal
     const handleClose = () => {
         const form = new FormData();
@@ -26,12 +22,8 @@ const Category = (props) => {
         form.append('parentId', parentCategoryId);
         form.append('categoryImage', categoryImage);
         dispatch(addCategory(form))
-        // const cat = {
-        //     categoryName: categoryName,
-        //     parentCategoryId: parentCategoryId,
-        //     categoryImage: categoryImage
-        // }
-        // console.log(cat)
+        setCategoryName('');
+        setParentCategoryId('')
         setShow(false);
     }
 
