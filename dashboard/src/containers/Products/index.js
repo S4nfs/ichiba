@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Layout from '../../components/Layout'
-import { Button, Col, Container, Modal, Row } from 'react-bootstrap'
+import { Button, Col, Container, Modal, Row, Table } from 'react-bootstrap'
 import Input from '../../components/UI/Input'
 import { useDispatch, useSelector } from 'react-redux'
 import { addProduct } from '../../actions/product.action'
@@ -14,6 +14,7 @@ const Products = () => {
     const [productPictures, setproductPictures] = useState([])
     const [show, setShow] = useState(false);
     const category = useSelector(state => state.category);
+    const product = useSelector(state => state.product);
     const dispatch = useDispatch();
 
     //bootstrap modal
@@ -51,6 +52,36 @@ const Products = () => {
             e.target.files[0]
         ])
     }
+    const renderProducts = () => {
+        return (
+            <Table responsive="sm">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Description</th>
+                        <th>Product Pictures</th>
+                        <th>Category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        product.products.length > 0 ? product.products.map((product) =>
+                            <tr key={product._id}>
+                                <td>1</td>
+                                <td>{product.name}</td>
+                                <td>{product.price}</td>
+                                <td>{product.quantity}</td>
+                                <td>{product.description}</td>
+                                <td>---</td>
+                            </tr>
+                        ) : null}
+                </tbody>
+            </Table>
+        )
+    }
 
     return (
         <div>
@@ -62,6 +93,11 @@ const Products = () => {
                                 <h3>Products</h3>
                                 <button onClick={handleShow}>Add</button>
                             </div>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            {renderProducts()}
                         </Col>
                     </Row>
                 </Container>
