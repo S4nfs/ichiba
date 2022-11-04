@@ -20,7 +20,7 @@ const Layout = (props) => {
                   <li><NavLink to='/orders'>Orders</NavLink></li>
                 </ul>
               </Col>
-              <Col md={10} style={{ marginLeft: 'auto' }}>{props.children}</Col>
+              <Col md={10} style={{ marginLeft: 'auto', paddingTop: '60px' }}>{props.children}</Col>
             </Row>
           </Container>
           :
