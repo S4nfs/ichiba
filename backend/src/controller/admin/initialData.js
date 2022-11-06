@@ -25,7 +25,8 @@ function createCategories(categories, parentId = null) {
 
 exports.initialData = async (req, res) => {
     const categories = await Category.find({}).exec();
-    const products = await Product.find({}).select('_id name slug price quantity description productPictures category').populate('category').exec(); //creating relationship
+    // const products = await Product.find({}).select('_id name slug price quantity description productPictures category').populate('category').exec(); //creating relationship
+    const products = await Product.find({}).select('_id name slug price quantity description productPictures category').populate({ path: 'category', select: '_id name' }).exec(); //don't want to display all properties of category in product
     res.status(200).json({
         categories: createCategories(categories),
         products
