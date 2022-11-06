@@ -16,7 +16,7 @@ app.use(express.json())
 app.use('/public', express.static(path.join(__dirname, 'uploads')));   //expose uploads to public
 
 //database
-mongoose.connect('mongodb://localhost:27017/MERN-ichiba').then(() => {
+mongoose.connect(`mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.ibohual.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`).then(() => {
     console.log('Database connected');
 })
 
