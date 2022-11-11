@@ -15,6 +15,5 @@ export const getinitialData = () => {
                 payload: { products }
             });
         }
-        console.log(res);
     }
 }
