@@ -33,7 +33,7 @@ const ProductListPage = (props) => {
                             </div>
                             <div style={{ display: "flex" }}>
                                 {
-                                    product.productsByPrice[key].map((product) => {
+                                    product.productsByPrice[key].map((product) =>
                                         <div className="productContainer">
                                             <div className="productImgContainer">
                                                 <img src={generatePublicUrl(product.productPictures[0].img)} alt="" srcset="" />
@@ -47,7 +47,7 @@ const ProductListPage = (props) => {
                                                 <div className='productPrice'>{product.price}</div>
                                             </div>
                                         </div>
-                                    })
+                                    )
                                 }
                             </div>
                         </div>
