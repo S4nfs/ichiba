@@ -21,7 +21,7 @@ function createCategories(categories, parentId = null) {
     }
     return categoryList;
 }
-
+//Create
 exports.addCategory = (req, res) => {
 
     const categoryObj = {
@@ -42,6 +42,7 @@ exports.addCategory = (req, res) => {
     })
 };
 
+//Read
 exports.getCategories = (req, res) => {
     Category.find({}).exec((error, categories) => {
         if (error) return res.status(400).json({ error: error });
@@ -50,4 +51,34 @@ exports.getCategories = (req, res) => {
             return res.status(200).json({ categoryList: categoryList });
         }
     })
+}
+
+//
+exports.updateCategories = async (req, res) => {
+    const { name, parentId, type } = req.body;
+    const updatedCategories = []
+    if (name instanceof array) {    //if multiple categories to be updated
+        for (let i = 0; i < name.length; i++) {
+            const category = {
+                name: name[i],
+                type: type[i]
+            }
+            if (parentId !== '') {
+                category.parentId = parentId[i];
+            }
+            const updatedCategory = await Category.findOneAndUpdate({ _id }, category, { new: true });
+            updatedCategories.push(updatedCategory);
+            return res.statue(201).json({ updatedCategories })
+        }
+    } else {
+        const category = {       //if single category to be updated
+            name: name,
+            type: type
+        }
+        if (parentId !== '') {
+            category.parentId = parentId;
+            const updatedCategory = await Category.findOneAndUpdate({ _id }, category, { new: true });
+            return res.statue(201).json({ updatedCategory })
+        }
+    }
 }
