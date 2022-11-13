@@ -23,15 +23,16 @@ const buildNewCategories = (parentId, categories, category) => {
             /* ex. lets say we create a category in kitchen portion so, if (state.categories._id===parentId) then cat here will be
                { _id: '6349a56cbf58ef7d83f87629', name: 'Kitchen', children: [] }
             */
+            const newCategory = {
+                _id: category._id,
+                name: category.name,
+                slug: category.slug,
+                parentId: category.parentId,
+                children: category.children
+            }
             myCategories.push({
                 ...cat,             //take ...rest(operator) of contents and push the {object} into children [array]
-                children: cat.children ? buildNewCategories(parentId, [...cat.children, {
-                    _id: category._id,
-                    name: category.name,
-                    slug: category.slug,
-                    parentId: category.parentId,
-                    children: category.children
-                }], category) : []
+                children: cat.children.length > 0 ? [...cat.children, newCategory] : [newCategory]
             })
         } else {
             myCategories.push({
