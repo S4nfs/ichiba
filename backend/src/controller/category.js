@@ -23,7 +23,6 @@ function createCategories(categories, parentId = null) {
 }
 //Create
 exports.addCategory = (req, res) => {
-
     const categoryObj = {
         name: req.body.name,
         slug: slugify(req.body.name),
@@ -63,13 +62,13 @@ exports.updateCategories = async (req, res) => {
                 name: name[i],
                 type: type[i]
             }
-            if (parentId !== '') {
+            if (parentId[i] !== '') {
                 category.parentId = parentId[i];
             }
-            const updatedCategory = await Category.findOneAndUpdate({ _id }, category, { new: true });
+            const updatedCategory = await Category.findOneAndUpdate({ _id: _id }, category, { new: true });
             updatedCategories.push(updatedCategory);
-            return res.statue(201).json({ updatedCategories })
         }
+        return res.statue(201).json({ updatedCategories: req.body })
     } else {
         const category = {       //if single category to be updated
             name: name,
