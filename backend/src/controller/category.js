@@ -54,9 +54,9 @@ exports.getCategories = (req, res) => {
 
 //
 exports.updateCategories = async (req, res) => {
-    const { name, parentId, type } = req.body;
+    const { _id, name, parentId, type } = req.body;
     const updatedCategories = []
-    if (name instanceof array) {    //if multiple categories to be updated
+    if (name instanceof Array) {    //if multiple categories to be updated
         for (let i = 0; i < name.length; i++) {
             const category = {
                 name: name[i],
@@ -68,7 +68,7 @@ exports.updateCategories = async (req, res) => {
             const updatedCategory = await Category.findOneAndUpdate({ _id: _id }, category, { new: true });
             updatedCategories.push(updatedCategory);
         }
-        return res.statue(201).json({ updatedCategories: req.body })
+        return res.statue(201).json({ updatedCategories: updatedCategories })
     } else {
         const category = {       //if single category to be updated
             name: name,
@@ -76,7 +76,7 @@ exports.updateCategories = async (req, res) => {
         }
         if (parentId !== '') {
             category.parentId = parentId;
-            const updatedCategory = await Category.findOneAndUpdate({ _id }, category, { new: true });
+            const updatedCategory = await Category.findOneAndUpdate({ _id: _id }, category, { new: true });
             return res.statue(201).json({ updatedCategory })
         }
     }
