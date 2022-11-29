@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { api } from '../urlConfig';
-import { store } from '../store';
+import store from '../store';
 import { authConstants } from '../actions/constants';
 
 const token = window.localStorage.getItem('token')
@@ -21,7 +21,7 @@ axiosInstance.interceptors.request.use((req) => {
 })
 
 //dispatch LOUGOUT_SUCCESS action if we got JWT expired or something similar to status 500/400
-axios.interceptors.response.use(() => {
+axios.interceptors.response.use((res) => {
     return res
 }, (error) => {
     console.log(error);
