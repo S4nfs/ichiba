@@ -6,7 +6,8 @@ import Layout from '../../components/Layout'
 import Input from '../../components/UI/Input'
 import CheckboxTree from 'react-checkbox-tree';
 import 'react-checkbox-tree/lib/react-checkbox-tree.css';
-import { IoCheckboxSharp, IoCheckboxOutline, IoChevronDown, IoChevronForward } from "react-icons/io5";
+import { IoCheckboxSharp, IoCheckboxOutline, IoChevronDown, IoChevronForward, IoAddOutline, IoTrashBinOutline, IoCreateOutline } from "react-icons/io5";
+import './style.css'
 
 const Category = (props) => {
     const category = useSelector(state => state.category);
@@ -119,11 +120,7 @@ const Category = (props) => {
             form.append('parentId', item.parentId ? item.parentId : '')
             form.append('type', item.type)
         })
-        dispatch(updateCategories(form)).then(result => {
-            if (result) {
-                dispatch(getAllCategory())
-            }
-        })
+        dispatch(updateCategories(form))
         setUpdateCategoryModal(false)
     }
 
@@ -220,17 +217,25 @@ const Category = (props) => {
                     <Modal.Title>Add new category</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Input value={categoryName} placeholder={`Category Name`} onChange={(e) => setCategoryName(e.target.value)} />
-                    <select name="" id="" className="form-control" onChange={(e) => setParentCategoryId(e.target.value)} value={parentCategoryId}>
-                        <option value="">select category</option>
-                        {
-                            //handle array options
-                            createCategoryList(category.categories).map(option =>
-                                <option value={option.value} key={option.value}>{option.name}</option>
-                            )
-                        }
-                    </select>
-                    <input type="file" name="categoryImage" id="" onChange={handleCategoryImage} />
+                    <Row>
+                        <Col>
+                            <Input className="form-control-sm" value={categoryName} placeholder={`Category Name`} onChange={(e) => setCategoryName(e.target.value)} />
+                        </Col>
+                        <Col>
+                            <select name="" id="" className="form-control form-control-sm" onChange={(e) => setParentCategoryId(e.target.value)} value={parentCategoryId}>
+                                <option value="">select category</option>
+                                {
+                                    //handle array options
+                                    createCategoryList(category.categories).map(option =>
+                                        <option value={option.value} key={option.value}>{option.name}</option>
+                                    )
+                                }
+                            </select>
+                        </Col>
+                    </Row>
+                    <Col>
+                        <input type="file" name="categoryImage" id="" onChange={handleCategoryImage} />
+                    </Col>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
@@ -296,7 +301,13 @@ const Category = (props) => {
                     <Col md={12}>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                             <h3>Category</h3>
-                            <button onClick={handleShow}>Add</button>
+                            <div className='actionBtnContainer'>
+                                <span>Actions: </span>
+                                <button onClick={handleShow}><IoAddOutline style={{ paddingBottom: '5px' }} /> <span>Add</span> </button>
+                                <button onClick={updateCategories}><IoCreateOutline style={{ paddingBottom: '5px' }} /> <span>Edit</span> </button>
+                                <button onClick={deleteCategory}><IoTrashBinOutline style={{ paddingBottom: '5px' }} /> <span>Delete</span> </button>
+                            </div>
+
                         </div>
                     </Col>
                 </Row>
@@ -320,13 +331,6 @@ const Category = (props) => {
                                 expandOpen: <IoChevronDown />,
                             }}
                         />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <button onClick={updateCategories}>Edit</button>
-                        <button onClick={deleteCategory}>Delete</button>
-
                     </Col>
                 </Row>
             </Container>
