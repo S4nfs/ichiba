@@ -17,6 +17,7 @@ function createCategories(categories, parentId = null) {
             name: c.name,
             slug: c.slug,
             parentId: c.parentId,
+            type: c.type,
             children: createCategories(categories, c._id)
         })
     }
@@ -69,7 +70,7 @@ exports.updateCategories = async (req, res) => {
             const updatedCategory = await Category.findOneAndUpdate({ _id: _id[i] }, category, { new: true });
             updatedCategories.push(updatedCategory);
         }
-        return res.statue(201).json({ updatedCategories: updatedCategories })
+        return res.status(201).json({ updatedCategories: updatedCategories })
     } else {
         const category = {       //if single category to be updated
             name: name,
@@ -78,7 +79,7 @@ exports.updateCategories = async (req, res) => {
         if (parentId !== '') {
             category.parentId = parentId;
             const updatedCategory = await Category.findOneAndUpdate({ _id: _id }, category, { new: true });
-            return res.statue(201).json({ updatedCategory })
+            return res.status(201).json({ updatedCategory })
         }
     }
 }

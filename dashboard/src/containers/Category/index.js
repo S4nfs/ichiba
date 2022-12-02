@@ -7,7 +7,7 @@ import Input from '../../components/UI/Input'
 import CheckboxTree from 'react-checkbox-tree';
 import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 import { IoCheckboxSharp, IoCheckboxOutline, IoChevronDown, IoChevronForward, IoAddOutline, IoTrashBinOutline, IoCreateOutline } from "react-icons/io5";
-import './style.css'
+import '../style.css'
 
 const Category = (props) => {
     const category = useSelector(state => state.category);
@@ -61,7 +61,12 @@ const Category = (props) => {
     //add categories
     const createCategoryList = (categories, options = []) => {
         for (let category of categories) {
-            options.push({ value: category._id, name: category.name, parentId: category.parentId });
+            options.push({
+                value: category._id,
+                name: category.name,
+                parentId: category.parentId,
+                type: category.type
+            });
             if (category.children.length > 0) {
                 createCategoryList(category.children, options)  //recall but with children property added
             }
@@ -75,7 +80,7 @@ const Category = (props) => {
     }
 
     //Get EXPANDED | CHECKED category array
-    const updateCategories = () => {
+    const triggerUpdateCategoriesModal = () => {
         updatedCheckedAndExpandedCategories();
         setUpdateCategoryModal(true)
     }
@@ -154,12 +159,11 @@ const Category = (props) => {
                                     </select>
                                 </Col>
                                 <Col>
-                                    <select name="" id="" className='form-control'>
+                                    <select name="" id="" className='form-control' value={item.type} onChange={(e) => handleUpdatedCategoryInput("type", e.target.value, index, 'expanded')}>
                                         <option value="">Select Type</option>
                                         <option value="store">Store</option>
                                         <option value="product">Product</option>
                                         <option value="page">Page</option>
-
                                     </select>
                                 </Col>
                             </Row>
@@ -184,12 +188,11 @@ const Category = (props) => {
                                     </select>
                                 </Col>
                                 <Col>
-                                    <select name="" id="" className='form-control'>
+                                    <select name="" id="" className='form-control' value={item.type} onChange={(e) => handleUpdatedCategoryInput("type", e.target.value, index, 'checked')}>
                                         <option value="">Select Type</option>
                                         <option value="store">Store</option>
                                         <option value="product">Product</option>
                                         <option value="page">Page</option>
-
                                     </select>
                                 </Col>
                             </Row>
@@ -212,7 +215,7 @@ const Category = (props) => {
     const renderAddCategoryModal = () => {
         return (
             // EDIT, DELETE Categories Modal +++++++++++++++ 
-            <Modal Modal show={show} onHide={() => setShow(false)} >
+            <Modal show={show} onHide={() => setShow(false)} >
                 <Modal.Header closeButton>
                     <Modal.Title>Add new category</Modal.Title>
                 </Modal.Header>
@@ -267,7 +270,7 @@ const Category = (props) => {
                 }
             });
         }
-
+        setDeleteCategoryModal(false)
     }
 
     const renderDeletecategoryModal = () => {
@@ -304,7 +307,7 @@ const Category = (props) => {
                             <div className='actionBtnContainer'>
                                 <span>Actions: </span>
                                 <button onClick={handleShow}><IoAddOutline style={{ paddingBottom: '5px' }} /> <span>Add</span> </button>
-                                <button onClick={updateCategories}><IoCreateOutline style={{ paddingBottom: '5px' }} /> <span>Edit</span> </button>
+                                <button onClick={triggerUpdateCategoriesModal}><IoCreateOutline style={{ paddingBottom: '5px' }} /> <span>Edit</span> </button>
                                 <button onClick={deleteCategory}><IoTrashBinOutline style={{ paddingBottom: '5px' }} /> <span>Delete</span> </button>
                             </div>
 
