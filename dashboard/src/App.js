@@ -11,6 +11,7 @@ import { getAllCategory, getinitialData, isUserLoggedIn } from './actions';
 import Products from './containers/Products';
 import Orders from './containers/Orders';
 import Category from './containers/Category';
+import NewPage from './containers/NewPage';
 
 function App() {
   const dispatch = useDispatch()
@@ -27,6 +28,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
+        <Route path="/page" element={<PrivateRoute><NewPage /> /></PrivateRoute>} />
         <Route path="/products" element={<PrivateRoute><Products /></PrivateRoute>} />
         <Route path="/orders" element={<PrivateRoute><Orders /></PrivateRoute>} />
         <Route path="/category" element={<PrivateRoute><Category /></PrivateRoute>} />

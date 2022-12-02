@@ -15,6 +15,7 @@ const Layout = (props) => {
               <Col md={2} className="sidebar" style={{ padding: '60px 0px' }}>
                 <ul>
                   <li><NavLink to="/">Home</NavLink></li>
+                  <li><NavLink to="/page">Page</NavLink></li>
                   <li><NavLink to="/category">Category</NavLink></li>
                   <li><NavLink to="/products">Products</NavLink></li>
                   <li><NavLink to='/orders'>Orders</NavLink></li>
