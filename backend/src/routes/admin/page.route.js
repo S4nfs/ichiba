@@ -3,6 +3,7 @@ const multer = require('multer');
 const shortid = require('shortid');
 const path = require('path');
 const { createPage } = require('../../controller/admin/page');
+const { isAuthenticatedByJWT, adminMiddleware } = require('../../common-middleware');
 
 //multer to store uploads and generation shortid
 const storage = multer.diskStorage({
@@ -15,7 +16,7 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage });
 
-router.post('/page/create', upload.fields([     //multer field
+router.post('/page/create', isAuthenticatedByJWT, adminMiddleware, upload.fields([     //multer field
     { name: 'banners' },
     { name: 'products' }
 ]), createPage);
