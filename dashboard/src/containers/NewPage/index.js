@@ -9,13 +9,14 @@ import '../style.css'
 const NewPage = (props) => {
     const [createModal, setCreateModal] = useState(false)
     const [title, setTitle] = useState('')
-    const category = useSelector(state => state.category)
     const [categories, setCategories] = useState([])
-    const [categoryId, setcategoryId] = useState('')
+    const [categoryId, setCategoryId] = useState('')
     const [desc, setDesc] = useState('')
     const [banners, setBanners] = useState([])
     const [products, setProducts] = useState([])
     const [type, setType] = useState('')
+    const category = useSelector(state => state.category)
+    const page = useSelector(state => state.page)
 
     const dispatch = useDispatch();
 
@@ -34,15 +35,25 @@ const NewPage = (props) => {
         return options;
     }
 
-
     useEffect(() => {
         setCategories(createCategoryList(category.categories));
     }, [category])
+    useEffect(() => {
+        console.log(page)
+        if (!page.loading) {
+            setCreateModal(false)
+            setTitle('')
+            setCategoryId('')
+            setDesc('')
+            setProducts([])
+            setBanners([])
+        }
+    }, [page])
 
     const onCategoryChange = (e) => {
-        categories.find(category => category._id === e.target.value)
-        setcategoryId(e.target.value)
-        setType(category.type);
+        const findcat = categories.find(category => category.value == e.target.value)
+        setCategoryId(e.target.value)
+        setType(findcat.type);
     }
     const handleBannerImages = (e) => {
         setBanners([...banners, e.target.files[0]])
@@ -69,13 +80,13 @@ const NewPage = (props) => {
         products.forEach((product, index) => {
             form.append('products', product)
         })
+        console.log(categoryId)
         dispatch(createPage(form));
     }
 
-
     const renderCreatePageModal = () => {
         return (
-            <Modal modalTitle="Confirm" show={createModal} handleClose={submitPageForm}>
+            <Modal modalTitle="Confirm" show={createModal} handleClose={(e) => setCreateModal(false)} onSubmit={submitPageForm}>
                 <Modal.Header closeButton>
                     <Modal.Title>Create New Page</Modal.Title>
                 </Modal.Header>
@@ -87,7 +98,7 @@ const NewPage = (props) => {
                                     <option value="">Select Category</option>
                                     {
                                         categories.map(cat =>
-                                            <option value={cat._id} key={cat._id}>{cat.name}</option>
+                                            <option value={cat.value} key={cat._id}>{cat.name}</option>
                                         )
                                     }
                                 </select>
@@ -145,8 +156,15 @@ const NewPage = (props) => {
     }
     return (
         <Layout sidebar>
-            {renderCreatePageModal()}
-            <button onClick={() => setCreateModal(true)}>Create Page</button>
+            {
+                page.loading ?
+                    <p>Building your page...</p>
+                    :
+                    <>
+                        {renderCreatePageModal()}
+                        <button onClick={() => setCreateModal(true)}>Create Page</button>
+                    </>
+            }
         </Layout>
 
     )
