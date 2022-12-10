@@ -21,8 +21,10 @@ function App() {
     if (!auth.authenticate) {
       dispatch(isUserLoggedIn());
     }
-    dispatch(getinitialData()) //componentDidMount (useEffect of getAllCategory) at app level
-  }, [])
+    if (auth.authenticate) {
+      dispatch(getinitialData()) //componentDidMount (useEffect of getAllCategory) at app level
+    }
+  }, [auth.authenticate])
 
   return (
     <div className="App">
