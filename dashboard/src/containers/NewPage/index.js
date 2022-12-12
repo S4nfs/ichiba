@@ -86,7 +86,7 @@ const NewPage = (props) => {
 
     const renderCreatePageModal = () => {
         return (
-            <Modal modalTitle="Confirm" show={createModal} handleClose={(e) => setCreateModal(false)} onSubmit={submitPageForm}>
+            <Modal modalTitle="Confirm" show={createModal} onHide={() => setCreateModal(false)} onSubmit={submitPageForm}>
                 <Modal.Header closeButton>
                     <Modal.Title>Create New Page</Modal.Title>
                 </Modal.Header>
@@ -94,14 +94,18 @@ const NewPage = (props) => {
                     <Container>
                         <Row>
                             <Col>
-                                <select className="form-control form-control-sm" value={categoryId} onChange={onCategoryChange}>
+                                {/* <select className="form-control form-control-sm" value={categoryId} onChange={onCategoryChange}>
                                     <option value="">Select Category</option>
                                     {
                                         categories.map(cat =>
                                             <option value={cat.value} key={cat._id}>{cat.name}</option>
                                         )
                                     }
-                                </select>
+                                </select> 
+                                wrapping the above select options as a props to used in UI/input 
+                                */}
+                                <Input type="select" value={categoryId} onChange={onCategoryChange} options={categories} placeholder={"Select Category"}>
+                                </Input>
                             </Col>
                         </Row>
                         <Row>
