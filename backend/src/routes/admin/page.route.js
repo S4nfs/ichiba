@@ -2,7 +2,7 @@ const router = require('express').Router();
 const multer = require('multer');
 const shortid = require('shortid');
 const path = require('path');
-const { createPage } = require('../../controller/admin/page');
+const { createPage, getPage } = require('../../controller/admin/page');
 const { isAuthenticatedByJWT, adminMiddleware } = require('../../common-middleware');
 
 //multer to store uploads and generation shortid
@@ -20,5 +20,7 @@ router.post('/page/create', isAuthenticatedByJWT, adminMiddleware, upload.fields
     { name: 'banners' },
     { name: 'products' }
 ]), createPage);
+
+router.get('/page/:category/:type', getPage);
 
 module.exports = router;
