@@ -17,14 +17,34 @@ exports.createPage = (req, res) => {
 
     req.body.createdBy = req.user._id;
 
-    const page = new Page(req.body);
-    page.save((error, page) => {
-        if (error) {
-            return res.status(400).json({ error: error });
-        }
+    Page.findOne({ category: req.body.category }).exec((error, page) => {
+        if (error) return res.status(400).json({ error })
         if (page) {
-            return res.status(201).json({ page });
+            Page.findOneAndUpdate({ category: req.body.category }, req.body).exec((error, updatedPage) => {
+                if (error) return res.status(400).json({ error })
+                if (updatedPage) {
+                    return res.status(201).json({ page: updatedPage });
+                }
+            })
+        } else {
+            const page = new Page(req.body);
+            page.save((error, page) => {
+                if (error) return res.status(400).json({ error: error });
+                if (page) {
+                    return res.status(201).json({ page });
+                }
+            })
         }
     })
     // res.status(200).json({ body: req.body });
+}
+
+exports.getPage = (req, res) => {
+    const { category, type } = req.params;
+    if (typs === "page") {
+        Page.findOne({ category: category }).exec((error, page) => {
+            if (error) return res.status(400).json({ error: error });
+            if (page) return res.status(201).json({ page });
+        })
+    }
 }
