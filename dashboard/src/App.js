@@ -30,7 +30,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
-        <Route path="/page" element={<PrivateRoute><NewPage /> /></PrivateRoute>} />
+        <Route path="/page" element={<PrivateRoute><NewPage /></PrivateRoute>} />
         <Route path="/products" element={<PrivateRoute><Products /></PrivateRoute>} />
         <Route path="/orders" element={<PrivateRoute><Orders /></PrivateRoute>} />
         <Route path="/category" element={<PrivateRoute><Category /></PrivateRoute>} />
