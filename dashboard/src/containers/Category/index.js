@@ -6,7 +6,18 @@ import Layout from '../../components/Layout'
 import Input from '../../components/UI/Input'
 import CheckboxTree from 'react-checkbox-tree';
 import 'react-checkbox-tree/lib/react-checkbox-tree.css';
-import { IoCheckboxSharp, IoCheckboxOutline, IoChevronDown, IoChevronForward, IoAddOutline, IoTrashBinOutline, IoCreateOutline } from "react-icons/io5";
+import {
+    IoIosCheckboxOutline,
+    IoIosCheckbox,
+    IoIosArrowForward,
+    IoIosArrowDown,
+    IoIosAdd,
+    IoIosTrash,
+    IoIosCloudUpload,
+    IoMdFolder,
+    IoIosFolderOpen,
+    IoIosRemove
+} from 'react-icons/io'
 import '../style.css'
 
 const Category = (props) => {
@@ -281,6 +292,7 @@ const Category = (props) => {
     }
 
     const renderDeletecategoryModal = () => {
+        console.log("DELETE", checkedArray)
         return (
             <Modal modalTitle="Confirm" show={deleteCategoryModal} onHide={() => setDeleteCategoryModal(false)}>
                 <Modal.Header closeButton>
@@ -313,9 +325,9 @@ const Category = (props) => {
                             <h3>Category</h3>
                             <div className='actionBtnContainer'>
                                 <span>Actions: </span>
-                                <button onClick={handleShow}><IoAddOutline style={{ paddingBottom: '5px' }} /> <span>Add</span> </button>
-                                <button onClick={triggerUpdateCategoriesModal}><IoCreateOutline style={{ paddingBottom: '5px' }} /> <span>Edit</span> </button>
-                                <button onClick={deleteCategory}><IoTrashBinOutline style={{ paddingBottom: '5px' }} /> <span>Delete</span> </button>
+                                <button onClick={handleShow}><IoIosAdd style={{ paddingBottom: '5px' }} /> <span>Add</span> </button>
+                                <button onClick={triggerUpdateCategoriesModal}><IoIosCloudUpload style={{ paddingBottom: '5px' }} /> <span>Edit</span> </button>
+                                <button onClick={deleteCategory}><IoIosTrash style={{ paddingBottom: '5px' }} /> <span>Delete</span> </button>
                             </div>
 
                         </div>
@@ -334,12 +346,16 @@ const Category = (props) => {
                             onCheck={checked => setChecked(checked)}
                             onExpand={expanded => setExpanded(expanded)}
                             icons={{
-                                check: <IoCheckboxSharp />,
-                                uncheck: <IoCheckboxOutline />,
-                                halfCheck: <IoCheckboxOutline />,
-                                expandClose: <IoChevronForward />,
-                                expandOpen: <IoChevronDown />,
+                                check: <IoIosCheckbox />,
+                                uncheck: <IoIosCheckboxOutline />,
+                                halfCheck: <IoIosCheckboxOutline />,
+                                expandClose: <IoIosArrowForward />,
+                                expandOpen: <IoIosArrowDown />,
+                                parentOpen: < IoIosFolderOpen />,
+                                parentClose: <IoMdFolder />,
+                                leaf: <IoIosRemove />
                             }}
+                            iconsClass="fa4"
                         />
                     </Col>
                 </Row>
