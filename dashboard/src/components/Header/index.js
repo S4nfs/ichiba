@@ -14,7 +14,7 @@ const Header = () => {
     return (
       <Nav>
         <li className='nav-item'>
-          <span className="nav-link" onClick={logout}>Signout</span>
+          <span className="nav-link" onClick={logout}>Sign out</span>
         </li>
       </Nav>
     )
@@ -24,10 +24,10 @@ const Header = () => {
       <Nav>
         {/* <Nav.Link href="#deets">Signin</Nav.Link> */}
         <li className='nav-item'>
-          <NavLink to="signup" className="nav-link">Signup</NavLink>
+          <NavLink to="signup" className="nav-link">Sign up</NavLink>
         </li>
         <li>
-          <Nav.Link to="signin" className="nav-link">Signin</Nav.Link>
+          <Nav.Link to="signin" className="nav-link">Sign in</Nav.Link>
         </li>
       </Nav>
     )
