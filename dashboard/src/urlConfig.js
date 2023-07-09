@@ -1,4 +1,4 @@
-export const api = `${process.env.API}/api`
+export const api = 'http://localhost:3001/api'
 export const generatePublicUrl = (filename) => {
-    return `${process.env.API}/public/${filename}`
+    return `http://localhost:3001/public/${filename}`
 }
