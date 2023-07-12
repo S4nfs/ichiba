@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { getProductsBySlug } from '../../../actions'
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom'; // importing the hook
 import './style.css'
 import { generatePublicUrl } from '../../../urlConfig';
 
 const ProductStore = (props) => {
+    console.log(props.params)
     const product = useSelector(state => state.product)
     const [priceRange, setPriceRange] = useState({
         under5k: 5000,
@@ -16,7 +16,7 @@ const ProductStore = (props) => {
     })
     const dispatch = useDispatch();
     // let params = useParams(); // calling the hook
-    let params = props
+
 
     useEffect(() => {
         dispatch(getProductsBySlug(params.slug))
