@@ -18,10 +18,10 @@ const ProductListPage = (props) => {
         let content = null
         switch (searchParams.type) {
             case 'store':
-                content = <ProductStore {...params} />
+                content = <ProductStore params={params} location={location} />
                 break;
             case 'page':
-                content = <ProductPage {...params} />
+                content = <ProductPage params={params} location={location} />
                 break;
             default:
                 content = null
