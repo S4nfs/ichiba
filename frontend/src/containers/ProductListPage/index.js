@@ -6,12 +6,12 @@ import ProductStore from './ProductStore'
 import './style.css'
 import ProductPage from './ProductPage'
 
-const ProductListPage = (props) => {
-    console.log(props)
+const ProductListPage = () => {
+
     let params = useParams(); //accessing slug
 
     const location = useLocation();
-    const renderProduct = (props) => {
+    const renderProduct = () => {
 
         // Accessing the whole location object and get search
         const searchParams = getParams(location.search)
