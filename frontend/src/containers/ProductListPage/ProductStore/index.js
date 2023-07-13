@@ -19,7 +19,7 @@ const ProductStore = (props) => {
 
 
     useEffect(() => {
-        dispatch(getProductsBySlug(params.slug))
+        dispatch(getProductsBySlug(props.params.slug))
     }, [])
     return (
         <>
@@ -28,7 +28,7 @@ const ProductStore = (props) => {
                     return (
                         <div className="card">
                             <div className="cardHeader">
-                                <div>{params.slug} mobile under {priceRange[key]}</div>
+                                <div>{props.params.slug} mobile under {priceRange[key]}</div>
                                 <button>view all</button>
                             </div>
                             <div style={{ display: "flex" }}>

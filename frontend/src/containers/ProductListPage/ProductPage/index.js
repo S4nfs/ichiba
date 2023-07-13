@@ -9,9 +9,6 @@ import Card from '../../../components/UI/Card';
 
 const ProductPage = ({ params, location }) => {
     const dispatch = useDispatch()
-    //console.log(params)
-    //console.log(location)
-    // console.log(param)
     const product = useSelector(state => state.product)
     const { page } = product
 
