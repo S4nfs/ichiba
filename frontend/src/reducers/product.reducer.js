@@ -11,7 +11,9 @@ const initstate = {
     },
     pageRequest: false,
     page: {},
-    error: null
+    error: null,
+    productDetails: {},
+    loading: false
 }
 
 export default (state = initstate, action) => {
@@ -45,6 +47,30 @@ export default (state = initstate, action) => {
             state = {
                 ...state,
                 pageRequest: false,
+                error: action.payload.error
+            }
+            break;
+
+        case productConstants.GET_PRODUCT_DETAILS_BY_ID_REQUEST:
+            state = {
+                ...state,
+                loading: true
+            }
+            console.log("HEHEHE")
+            break;
+
+        case productConstants.GET_PRODUCT_DETAILS_BY_ID_SUCCESS:
+            state = {
+                ...state,
+                productDetails: action.payload.productDetails,
+                loading: false
+            }
+            break;
+
+        case productConstants.GET_PRODUCT_DETAILS_BY_ID_FAILURE:
+            state = {
+                ...state,
+                loading: false,
                 error: action.payload.error
             }
             break;
