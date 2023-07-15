@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isUserLoggedIn } from './actions';
 import ProductDetailsPage from './containers/ProductDetailsPage';
+import CartPage from './components/CartPage';
 function App() {
   const dispatch = useDispatch()
   const auth = useSelector(state => state.auth)
@@ -22,6 +23,7 @@ function App() {
           <Route path='/' element={<HomePage />} />
           <Route path='/:slug' element={<ProductListPage />} />
           <Route path='/:productSlug/:productId/p' element={<ProductDetailsPage />} />
+          <Route path='/cart' element={<CartPage />} />
 
         </Routes>
       </Router>
