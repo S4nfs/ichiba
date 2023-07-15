@@ -3,9 +3,10 @@ import { getProductsBySlug } from '../../../actions'
 import { useDispatch, useSelector } from 'react-redux';
 import './style.css'
 import { generatePublicUrl } from '../../../urlConfig';
+import { Link } from 'react-router-dom';
+import Card from '../../../components/UI/Card';
 
 const ProductStore = (props) => {
-    console.log(props.params)
     const product = useSelector(state => state.product)
     const [priceRange, setPriceRange] = useState({
         under5k: 5000,
@@ -15,7 +16,6 @@ const ProductStore = (props) => {
         under30k: 30000,
     })
     const dispatch = useDispatch();
-    // let params = useParams(); // calling the hook
 
 
     useEffect(() => {
@@ -26,15 +26,15 @@ const ProductStore = (props) => {
             {
                 Object.keys(product.productsByPrice).map((key, index) => {
                     return (
-                        <div className="card">
-                            <div className="cardHeader">
-                                <div>{props.params.slug} mobile under {priceRange[key]}</div>
-                                <button>view all</button>
-                            </div>
-                            <div style={{ display: "flex" }}>
+                        <Card headerLeft={`${props.params.slug} mobile under ${priceRange[key]}`} headerRight={<button>view all</button>
+                        } style={{
+                            width: 'calc(100% - 40px)', margin: '20px'
+                        }}>
+                            <div style={{ display: "flex" }
+                            } >
                                 {
                                     product.productsByPrice[key].map((product) =>
-                                        <div className="productContainer">
+                                        <Link style={{ display: 'block' }} className="productContainer" to={`/${product.slug}/${product._id}/p`} >
                                             <div className="productImgContainer">
                                                 <img src={generatePublicUrl(product.productPictures[0].img)} alt="" srcset="" />
                                             </div>
@@ -46,11 +46,11 @@ const ProductStore = (props) => {
                                                 </div>
                                                 <div className='productPrice'>{product.price}</div>
                                             </div>
-                                        </div>
+                                        </Link>
                                     )
                                 }
-                            </div>
-                        </div>
+                            </div >
+                        </Card >
                     )
                 })
             }
