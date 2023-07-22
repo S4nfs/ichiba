@@ -52,7 +52,7 @@ exports.addItemToCart = (req, res) => {
 }
 
 exports.getCartItems = ((req, res) => {
-    Cart.findOne({ user: req.user._id }).populate('cartItems.product', '_id,name, price,ProductPictures').exec((error, cart) => {
+    Cart.findOne({ user: req.user._id }).populate('cartItems.product', '_id name price productPictures').exec((error, cart) => {
         if (error) return res.status(400).json({ error: error });
         if (cart) {
             let cartItems = {}
