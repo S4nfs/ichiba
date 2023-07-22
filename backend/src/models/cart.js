@@ -16,11 +16,11 @@ const cartSchema = new mongoose.Schema({
             type: Number,
             default: 1
         },
-        price: {
-            type: Number,
-            default: 1,
-            required: true,
-        },
+        // price: {
+        //     type: Number,
+        //     default: 1,
+        //     required: true,
+        // },
     }]
 }, { timestamps: true })
 
